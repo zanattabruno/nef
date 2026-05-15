@@ -32,6 +32,17 @@ func (a *AfData) NewSub(numCorreID uint64, tiSub *models.NefTrafficInfluSub) *Af
 	return &sub
 }
 
+func (a *AfData) NewQoSSub(numCorreID uint64) *AfSubscription {
+	a.NumSubscID++
+	sub := AfSubscription{
+		NotifCorreID: strconv.FormatUint(numCorreID, 10),
+		SubID:        strconv.FormatUint(a.NumSubscID, 10),
+		Log:          a.Log.WithField(logger.FieldSubID, fmt.Sprintf("QOS:%d", a.NumSubscID)),
+	}
+	sub.Log.Infoln("New QoS subscription")
+	return &sub
+}
+
 func (a *AfData) NewPfdTrans() *AfPfdTransaction {
 	a.NumTransID++
 	pfdTr := AfPfdTransaction{

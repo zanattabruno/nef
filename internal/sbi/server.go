@@ -69,6 +69,10 @@ func NewServer(nef nef, tlsKeyLogPath string) (*Server, error) {
 	group = s.router.Group(factory.NefEventExposureResUriPrefix)
 	applyRoutes(group, endpoints)
 
+	endpoints = s.getAsSessionWithQoSRoutes()
+	group = s.router.Group(factory.AsSessionWithQoSResUriPrefix)
+	applyRoutes(group, endpoints)
+
 	s.router.Use(cors.New(cors.Config{
 		AllowMethods: []string{"GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"},
 		AllowHeaders: []string{

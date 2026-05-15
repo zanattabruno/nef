@@ -8,6 +8,7 @@ import (
 type AfSubscription struct {
 	SubID        string
 	TiSub        *models.NefTrafficInfluSub
+	QosSub       map[string]interface{}  // QoS subscription data for AsSessionWithQoS
 	AppSessID    string // use in single UE case
 	InfluID      string // use in multiple UE case
 	NotifCorreID string
