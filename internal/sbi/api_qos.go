@@ -14,6 +14,7 @@ import (
 // The NEF translates these into Npcf_PolicyAuthorization requests towards the PCF.
 func (s *Server) getAsSessionWithQoSRoutes() []Route {
 	return []Route{
+		{Method: http.MethodPost, Pattern: "/callbacks/:subID", APIFunc: func(c *gin.Context) { s.Processor().QoSNotification(c) }},
 		{
 			Method:  http.MethodGet,
 			Pattern: "/:afID/subscriptions",

@@ -15,6 +15,7 @@ type nef interface {
 
 type Processor struct {
 	nef
+	qos *qosManager
 }
 
 type HandlerResponse struct {
@@ -28,6 +29,12 @@ func NewProcessor(nef nef) (*Processor, error) {
 		nef: nef,
 	}
 
+	var err error
+	handler.qos, err = newQoSManager(handler)
+	if err != nil {
+		return nil, err
+	}
+	go handler.qos.run()
 	return handler, nil
 }
 
